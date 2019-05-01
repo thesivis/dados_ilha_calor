@@ -13,18 +13,21 @@ file = 'DADOS REDE NEURAL ESTAÇÕES UTM.xlsx'
 xl = pd.ExcelFile(file)
 
 for sheet in xl.sheet_names:
-    planilha = xl.parse(sheet)
-    print(planilha.shape)
 
     if('2011' in sheet):
+        planilha = xl.parse(sheet)
+        print(sheet, planilha.shape)
+        total = planilha.shape[0]
         nomes = list(planilha.columns)+list(solo2011.columns)
         res = pd.DataFrame(columns=nomes)
         idx=0
         menor = sys.float_info.max
         linha = None
-        for i in range(1, planilha.shape[0]):
+        for i in range(planilha.shape[0]):
             l1 = planilha.iloc[[i]]
-            for j in range(1, solo2011.shape[0]):
+            if(i%100 == 0):
+                print(sheet,i,total)
+            for j in range(solo2011.shape[0]):
                 l2 = solo2011.iloc[[j]]
                 distancia = math.sqrt((l2.values[0][0] - l1.values[0][1])**2 + (l2.values[0][1] - l1.values[0][2])**2)
                 if(distancia < menor):
@@ -35,4 +38,3 @@ for sheet in xl.sheet_names:
             idx=idx+1
 
         res.to_csv(sheet + '.csv',index=False)
-        exit(1)
