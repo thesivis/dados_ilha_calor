@@ -14,7 +14,7 @@ xl = pd.ExcelFile(file)
 
 for sheet in xl.sheet_names:
 
-    if('2011' in sheet):
+    if('2011' in sheet or '2012' in sheet):
         planilha = xl.parse(sheet)
         print(sheet, planilha.shape)
         total = planilha.shape[0]
