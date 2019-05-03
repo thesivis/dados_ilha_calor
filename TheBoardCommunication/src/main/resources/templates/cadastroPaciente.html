@@ -1,0 +1,276 @@
+<!DOCTYPE HTML>
+<html 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="fragmentos/base/template">
+
+<head>
+  <title layout:title-pattern="$CONTENT_TITLE - $DECORATOR_TITLE">Cadastro de Paciente</title>
+</head>
+
+<body>
+
+<main layout:fragment="conteudo-frag" class="container fundo-claro">
+  <header class="mb-5">
+    <h4>Cadastro de Paciente</h4>
+    <hr/>
+  </header>
+  
+  <form id="form-cadastro" class="col-md-6 offset-md-3" th:assert="${paciente}" th:object="${paciente}"
+        th:action="@{/pastaPaciente/salvar}" method="post" enctype="multipart/form-data">
+    
+    <!-- Imagem -->
+    <fieldset class="form-group" layout:include="fragmentos/uploadImagem :: uploadImagem-frag(
+      imagemId='imagem-paciente',
+      tamanho=150,
+      src=*{imagemUrl})">
+    </fieldset>
+    
+    <!-- Dados -->
+    <fieldset class="form-group row">
+      <label class="col-form-label font-weight-bold" for="input-nome">NOME</label>
+      <input class="form-control " id="input-nome" name="input-nome"
+             required="" type="text" th:field="*{nome}">
+    </fieldset>
+    
+    <!-- Sexo -->
+    <fieldset class="form-group row">
+      <label class="font-weight-bold">SEXO</label>
+      
+      <div class="col-md">
+        
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" id="sexo-0" name="grupo-sexo" type="radio" value="M"
+                 th:field="*{sexo}" required="" checked=""/>
+          <label class="custom-control-label" for="sexo-0">MASCULINO</label>
+        </div>
+        
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" id="sexo-1" name="grupo-sexo" type="radio" value="F"
+                 th:field="*{sexo}" required=""/>
+          <label class="custom-control-label" for="sexo-1">FEMININO</label>
+        </div>
+      
+      </div>
+    </fieldset>
+    
+    <!-- Fluxo Prancha -->
+    <fieldset class="form-group row">
+      <label class="font-weight-bold">FLUXO DA PRANCHA</label>
+      
+      <div class="col-md">
+        
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" id="fluxo-svc" name="grupo-fluxo" type="radio"
+                 value="SUJEITO-VERBO-COMPLEMENTO"
+                 th:field="*{fluxoPrancha}" required="" checked=""/>
+          <label class="custom-control-label" for="fluxo-svc">SUJEITO -> VERBO -> COMPLEMENTO</label>
+        </div>
+        
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" id="fluxo-livre" name="grupo-fluxo" type="radio" value="LIVRE"
+                 th:field="*{fluxoPrancha}" required=""/>
+          <label class="custom-control-label" for="fluxo-livre">LIVRE</label>
+        </div>
+      
+      </div>
+    </fieldset>
+    
+    <!-- Falar cada palavra da Prancha -->
+    <fieldset class="form-group row">
+      <label class="font-weight-bold">FALAR CADA PALAVRA PELO QUAL O SELETOR PASSAR</label>
+      
+      <div class="col-md">
+        
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" id="falar-nao" name="grupo-falar-seletor" type="radio" value="false"
+                 th:field="*{falarCadaPalavraSeletor}" required="" checked=""/>
+          <label class="custom-control-label" for="falar-nao">NÃO</label>
+        </div>
+        
+        <div class="custom-control custom-radio">
+          <input class="custom-control-input" id="falar-sim" name="grupo-falar-seletor" type="radio" value="true"
+                 th:field="*{falarCadaPalavraSeletor}" required=""/>
+          <label class="custom-control-label" for="falar-sim">SIM</label>
+        </div>
+      
+      </div>
+    </fieldset>
+  
+     <fieldset class="form-group row">
+      <label class="font-weight-bold">VELOCIDADE DO SELETOR (MS)</label>
+      
+      <input class="form-control " id="input-nome" name="input-velocidadeSelecao"
+             required="" type="text" th:field="*{velocidadeSelecao}">
+      
+      </div>
+    </fieldset>
+    
+    <!-- Tabela de Sujeitos -->
+    <section id="secao-sujeitos" class="secao-palavra">
+      <h5>Sujeitos</h5>
+      <hr/>
+      
+      <table id="tabela-sujeitos" class="table table-sm table-bordered table-striped">
+        
+        <thead>
+        <tr>
+          <th scope="col" class="text-center">IMAGEM</th>
+          <th scope="col">PALAVRA</th>
+          <th scope="col" class="text-center">SELECIONAR</th>
+        </tr>
+        </thead>
+  
+        <tbody>
+        <tr th:each="palavra : ${sujeitoList}">
+    
+          <td class="text-center">
+            <img class="img-thumbnail img-fluid d-block mx-auto"
+                 th:src="@{'/' + ${palavra.url}}"
+                 src="../static/images/placeholder.png" width="60">
+          </td>
+    
+          <td class="align-middle" th:text="${palavra.palavra}"></td>
+    
+          <td class="align-middle text-center">
+            <input type="checkbox" th:id="'sujeito-' + ${palavra.id}"/>
+          </td>
+  
+        </tr>
+        </tbody>
+      
+      </table>
+    </section>
+    
+    <!-- Tabela de Verbos -->
+    <section id="secao-verbos" class="secao-palavra">
+      <h5>Verbos</h5>
+      <hr/>
+      
+      <table id="tabela-verbos" class="table table-sm table-bordered table-striped">
+        
+        <thead>
+        <tr>
+          <th scope="col" class="text-center">IMAGEM</th>
+          <th scope="col">PALAVRA</th>
+          <th scope="col" class="text-center">SELECIONAR</th>
+        </tr>
+        </thead>
+  
+        <tbody>
+        <tr th:each="palavra : ${verboList}">
+    
+          <td class="text-center">
+            <img class="img-thumbnail img-fluid d-block mx-auto"
+                 th:src="@{'/' + ${palavra.url}}"
+                 src="../static/images/placeholder.png" width="60">
+          </td>
+    
+          <td class="align-middle" th:text="${palavra.palavra}"></td>
+    
+          <td class="align-middle text-center">
+            <input type="checkbox" th:id="'verbo-' + ${palavra.id}"/>
+          </td>
+  
+        </tr>
+        </tbody>
+      
+      </table>
+    </section>
+    
+    <!-- Tabela de Complementos -->
+    <section id="secao-complementos" class="secao-palavra">
+      <h5>Complementos</h5>
+      <hr/>
+      
+      <table id="tabela-complementos" class="table table-sm table-bordered table-striped">
+        
+        <thead>
+        <tr>
+          <th scope="col" class="text-center">IMAGEM</th>
+          <th scope="col">PALAVRA</th>
+          <th scope="col" class="text-center">SELECIONAR</th>
+        </tr>
+        </thead>
+        
+        <tbody>
+        <tr th:each="palavra : ${complementoList}">
+  
+          <td class="text-center">
+            <img class="img-thumbnail img-fluid d-block mx-auto"
+                 th:src="@{'/' + ${palavra.url}}"
+                 src="../static/images/placeholder.png" width="60">
+          </td>
+  
+          <td class="align-middle" th:text="${palavra.palavra}"></td>
+  
+          <td class="align-middle text-center">
+            <input type="checkbox" th:id="'complemento-' + ${palavra.id}"/>
+          </td>
+
+        </tr>
+        </tbody>
+      
+      </table>
+    </section>
+    
+    <!-- Tabela de Diversos -->
+    <section id="secao-diversos" class="secao-palavra">
+      <h5>Diversos</h5>
+      <hr/>
+      
+      <table id="tabela-diversos" class="table table-sm table-bordered table-striped">
+        
+        <thead>
+        <tr>
+          <th scope="col" class="text-center">IMAGEM</th>
+          <th scope="col">PALAVRA</th>
+          <th scope="col" class="text-center">SELECIONAR</th>
+        </tr>
+        </thead>
+        
+        <tbody>
+        <tr th:each="palavra : ${diversoList}">
+          
+          <td class="text-center">
+            <img class="img-thumbnail img-fluid d-block mx-auto"
+                 th:src="@{'/' + ${palavra.url}}"
+                 src="../static/images/placeholder.png" width="60">
+          </td>
+          
+          <td class="align-middle" th:text="${palavra.palavra}"></td>
+          
+          <td class="align-middle text-center">
+            <input type="checkbox" th:id="'diverso-' + ${palavra.id}"/>
+          </td>
+        
+        </tr>
+        </tbody>
+      
+      </table>
+    </section>
+  
+    <!-- Botões de Avançar/Voltar Categoria Palavra -->
+    <section class="row offset-md-3">
+      <button type="button" id="btn-anterior-categoria"class="col-4 mr-2 btn btn-secondary">VOLTAR</button>
+      <button type="button" id="btn-proxima-categoria" class="col-4 btn btn-primary">PRÓXIMO</button>
+    </section>
+  
+    <!-- Botões de envio -->
+    <hr class="mt-5"/>
+    <section class="mt-4 row offset-md-7">
+      <a type="button" class="col mr-2 btn btn-secondary" th:href="@{'/pastaPaciente'}">CANCELAR</a>
+      <button id="botao-enviar-form" type="submit" class="col btn btn-primary">SALVAR</button>
+    </section>
+    
+  </form>
+
+</main>
+</body>
+
+<th:block layout:fragment="rodape-scripts-frag">
+  <script th:src="@{/js/cadastro-paciente.js}"></script>
+</th:block>
+
+</html>

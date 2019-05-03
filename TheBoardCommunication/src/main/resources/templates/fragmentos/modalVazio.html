@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<body layout:fragment="modal-frag(modalId, modalTitulo)">
+
+<section th:id="${modalId}" class="modal fade" data-static="" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    
+    <div th:id="${modalId} + '-conteudo'" class="modal-content">
+      
+      <!-- Cabeçalho -->
+      <header class="modal-header">
+        <h5 th:text="${modalTitulo}" class="modal-title">(Título)</h5>
+        
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      
+      </header>
+  
+      <!-- Conteúdo -->
+    
+    </div>
+  
+  </div>
+</section>
+
+</body>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<!--/* <!--suppress ThymeleafVariablesResolveInspection, HtmlUnknownTag */-->
+<html 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<body layout:fragment="item-frag(texto, tempo, icone)">
+
+<li class="btn  item-icone"
+     data-item-tipo="tempo" th:attr="data-item-secao=${secao}, data-tempo-id=${tempo}">
+  <i th:class="'fas fa-2x ' + ${icone}"></i>
+  <h6 th:text="${texto}"></h6>
+</li>
+
+</body>
+
+</html>
