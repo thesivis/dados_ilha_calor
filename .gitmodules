@@ -1,9 +1,9 @@
 [submodule "diana"]
 	path = diana
-	url = git://github.com/thesivis/diana.git
+	url = https://github.com/thesivis/diana.git
 [submodule "TheBoardCommunication"]
 	path = TheBoardCommunication
-	url = git://github.com/thesivis/theboardcommunication.git
+	url = https://github.com/thesivis/theboardcommunication.git
 [submodule "thegaps"]
 	path = thegaps
 	url = https://github.com/thesivis/thegaps.git
