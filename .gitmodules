@@ -4,3 +4,6 @@
 [submodule "TheBoardCommunication"]
 	path = TheBoardCommunication
 	url = git://github.com/thesivis/theboardcommunication.git
+[submodule "thegaps"]
+	path = thegaps
+	url = https://github.com/thesivis/thegaps.git
