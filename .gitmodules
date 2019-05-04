@@ -1,0 +1,6 @@
+[submodule "diana"]
+	path = diana
+	url = git://github.com/thesivis/diana.git
+[submodule "TheBoardCommunication"]
+	path = TheBoardCommunication
+	url = git://github.com/thesivis/theboardcommunication.git
