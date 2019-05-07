@@ -7,3 +7,6 @@
 [submodule "thegaps"]
 	path = thegaps
 	url = https://github.com/thesivis/thegaps.git
+[submodule "react"]
+	path = react
+	url = https://github.com/thesivis/react.git
