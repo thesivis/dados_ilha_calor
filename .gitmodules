@@ -10,3 +10,6 @@
 [submodule "react"]
 	path = react
 	url = https://github.com/thesivis/react.git
+[submodule "thevoting"]
+	path = thevoting
+	url = https://github.com/thesivis/thevoting.git
