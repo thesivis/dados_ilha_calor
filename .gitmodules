@@ -13,3 +13,6 @@
 [submodule "thevoting"]
 	path = thevoting
 	url = https://github.com/thesivis/thevoting.git
+[submodule "tutoriais"]
+	path = tutoriais
+	url = https://github.com/thesivis/tutoriais.git
