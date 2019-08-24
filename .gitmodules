@@ -16,3 +16,6 @@
 [submodule "tutoriais"]
 	path = tutoriais
 	url = https://github.com/thesivis/tutoriais.git
+[submodule "analise"]
+	path = analise
+	url = https://github.com/thesivis/analise.git
